@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@700&display=swap">
+
+
+  <title>Khadija elhabchi | Advice generator app</title>
+
+
+  <style>
+    body {
+      background-color: #202632;
+      font-family: 'Rubik', sans-serif;
+      font-weight: 600;
+      color: #cee3e8;
+    }
+
+    .attribution {
+      position: fixed;
+      bottom: 0;
+      left: 35%;
+    }
+
+    .container {
+      display: grid;
+      place-items: center;
+      width: 40%;
+      margin: 8em auto;
+      border-radius: 25px;
+      background-color: #313a49;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h3 {
+      color: #53ffa9;
+    }
+
+    .mobile {
+      display: none;
+    }
+
+    .change {
+      background-color: #53ffa9;
+      padding: 15px;
+      border-radius: 50px;
+      margin-top: 40px;
+      margin-bottom: -45px;
+      width: 25px;
+    }
+
+    a{
+      text-decoration: none;
+      color: #cee3e8;
+    }
+
+    @media screen and (max-width: 760px) {
+
+      .mobile {
+        display: block;
+      }
+
+      .desktop {
+        display: none;
+      }
+
+      .container{
+        display: grid;
+      place-items: center;
+      width: 90%;
+      margin: 8em auto;
+      border-radius: 25px;
+      background-color: #313a49;
+      text-align: center;
+      padding: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h3>Advice # <span id="advice-id"></span></span> </h3>
+    <p id="advice-text">""</p>
+    <img src="images/pattern-divider-desktop.svg" alt="just a divider" class="desktop">
+    <img src="images/pattern-divider-mobile.svg" alt="just a divider" class="mobile">
+    <img src="images/rafraichir.svg" alt="click me!" class="change" onclick="fetchAdvice()">
+  </div>
+
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+    Coded by <a href="https://khadija99-tech.github.io/MyPortfolio/">Elhabchi Khadija</a>.
+  </div>
+
+
+  <script>
+    function fetchAdvice() {
+      // Fetch data from the API
+      fetch('https://api.adviceslip.com/advice')
+        .then(response => response.json())
+        .then(data => {
+          // Update the HTML content with the received advice
+          document.getElementById('advice-id').textContent = data.slip.id;
+          document.getElementById('advice-text').textContent = `"${data.slip.advice}"`;
+        })
+        .catch(error => console.error('Error fetching advice:', error));
+    }
+    // Call the fetchAdvice function when the page loads
+    fetchAdvice();
+  </script>
+</body>
+
+</html>
